@@ -1,0 +1,36 @@
+// 238. Product of Array Except Self
+// Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+// The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+// You must write an algorithm that runs in O(n) time and without using the division operation.
+// Example 1:
+// Input: nums = [1,2,3,4]
+// Output: [24,12,8,6]
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        
+        int n = nums.size();
+        vector<int> arr(n,0);
+        arr[n-1] = nums[n-1];
+        for (int i = n-2; i >= 0; i--)
+        {
+            arr[i] = nums[i] * arr[i+1];
+        }
+        int prod = 1;
+        for (int i = 0; i < n; i++)
+        {
+            if (i == n-1)
+            {
+                arr[i] = prod;
+            }
+            else
+            {
+                arr[i] = prod * arr[i+1];
+            }
+
+            prod = prod * nums[i];
+        }
+        return arr;
+    }
+};
